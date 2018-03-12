@@ -68,6 +68,10 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemViewType(int position){
+        /*
+            Berguna untuk menentukan posisi tampilan 1 siklus loading data
+        */
+        
         Log.d(TAG, "getItemViewType: FYZ");
 
         return contacts.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
@@ -76,26 +80,34 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: FYZ");
-
+        
+        /*
+            Menentukan view yang akan ditampilkan apakah item (tanpa 's') atau loading LoadingViewHolder
+        */
+        
         if(viewType == VIEW_TYPE_ITEM){
             View view = LayoutInflater.from(activity).inflate(R.layout.recycler_row_item_contact, parent, false);
 
             Log.d(TAG, "onCreateViewHolder: FYZ - viewType == VIEW_TYPE_ITEM");
 
-            return new UserViewHolder(view); //Inner class
+            return new UserViewHolder(view); //Inner class -> ada di bawah
         } else if(viewType == VIEW_TYPE_LOADING){
             View view = LayoutInflater.from(activity).inflate(R.layout.recycler_loading_progress, parent,false);
 
             Log.d(TAG, "onCreateViewHolder: FYZ - viewType == VIEW_TYPE_LOADING");
 
-            return new LoadingViewHolder(view);
+            return new LoadingViewHolder(view); //Inner class -> ada di bawah
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: FYZ");
+        /*
+            Mengeset view yang akan ditampilkan apakah item (tanpa 's') atau loading LoadingViewHolder
+        */
+        
+        Log.d(TAG, "onBindViewHolder: FYZ");          
 
         if(holder instanceof UserViewHolder){
             Log.d(TAG, "onBindViewHolder: FYZ - holder instanceof UserViewHolder");
@@ -121,6 +133,9 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     private class UserViewHolder extends RecyclerView.ViewHolder {
+        /*
+            Method ini digunakan untuk mendefinisikan dan mendeklarasikan komponen view pada tiap card (item - tanpa 's')
+        */
         public TextView phone;
         public TextView email;
 
@@ -132,6 +147,9 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
+        /*
+            Method ini digunakan untuk mendefinisikan progress bar (loading yang bentuknya bulet)
+        */
         public ProgressBar progressBar;
         public LoadingViewHolder(View view) {
             super(view);
